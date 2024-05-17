@@ -14,6 +14,6 @@ class Ollama(ChatOllama):
     """
 
     def __init__(self, llm_config: dict):
-        # Update the model name to 'orca-mini'
+        # Ensure the model name is set to 'orca-mini', which is a valid model from the Ollama library
         llm_config['model'] = 'orca-mini'
         super().__init__(**llm_config)
