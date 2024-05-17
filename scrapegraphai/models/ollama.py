@@ -1,4 +1,4 @@
-""" 
+"""
 Ollama Module
 """
 from langchain_community.chat_models import ChatOllama
@@ -14,4 +14,6 @@ class Ollama(ChatOllama):
     """
 
     def __init__(self, llm_config: dict):
+        # Update the model name to 'orca-mini'
+        llm_config['model'] = 'orca-mini'
         super().__init__(**llm_config)
