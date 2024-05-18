@@ -236,12 +236,8 @@ class AbstractGraph(ABC):
         elif isinstance(self.llm_model, AzureOpenAI):
             return AzureOpenAIEmbeddings()
         elif isinstance(self.llm_model, Ollama):
-            # unwrap the kwargs from the model whihc is a dict
-            params = self.llm_model._lc_kwargs
-            # remove streaming and temperature
-            params.pop("streaming", None)
-            params.pop("temperature", None)
-
+            # Instantiate OllamaEmbeddings with the necessary parameters from llm_config
+            params = {key: val for key, val in self.llm_model.llm_config.items() if key not in ["streaming", "temperature"]}
             return OllamaEmbeddings(**params)
         elif isinstance(self.llm_model, HuggingFace):
             return HuggingFaceHubEmbeddings(model=self.llm_model.model)
