@@ -17,12 +17,15 @@ load_dotenv()
 
 openai_key = os.getenv("OPENAI_APIKEY")
 
+# Update the graph configuration to use the 'orca-mini' model
+# and the local Ollama service API endpoint
 graph_config = {
     "llm": {
         "api_key": openai_key,
-        "model": "gpt-3.5-turbo",
+        "model": "orca-mini",
         "temperature": 0,
-        "streaming": False
+        "streaming": False,
+        "api_endpoint": "http://localhost:11434/api/generate"
     },
 }
 
@@ -43,7 +46,6 @@ robot_node = RobotsNode(
         "verbose": True,
         }
 )
-
 fetch_node = FetchNode(
     input="url | local_dir",
     output=["doc"],
